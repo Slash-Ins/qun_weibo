@@ -199,8 +199,9 @@ def create_excel():
     return excel
 
 
-# file = create_excel()
-# init_excel(file, 0, 9)
+file = create_excel()
+# file = 'qun_comments_data_new.xlsx'
+init_excel(file, 1, 10)
 
 
 
