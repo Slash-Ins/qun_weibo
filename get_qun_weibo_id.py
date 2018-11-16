@@ -24,13 +24,10 @@ def get_weibo_ids(gsid, get_id_count):
     oid = '1022:2304914261430515326918'
 
     get_weibo_ids_url = base_url + '?gsid=' + gsid + '&from=' + from_source + '&c=' + phone_name + '&networktype=' \
-                      + network_type + '&s=' + s + '&flow=' + flow
+                        + network_type + '&s=' + s + '&flow=' + flow
 
-
-
-
-    params = {'uid':uid, 'count': get_id_count, 'oid': oid}
-
+    params = {'uid': uid, 'count': get_id_count, 'oid': oid}
+    print(get_weibo_ids_url)
     res = requests.post(get_weibo_ids_url, params)
     res_json = res.json()
     print(res_json)
@@ -42,8 +39,6 @@ def get_weibo_ids(gsid, get_id_count):
         print(weibo['text'])
         weibo_ids_list.append(str(weibo['id']))
     return weibo_ids_list
-
-
 
 
 def get_qun_weibo_comments(gsid, id):
@@ -90,11 +85,8 @@ def get_qun_weibo_comments(gsid, id):
         count = count + len(res['root_comments'])
         first_comments = res['root_comments']
 
-
     for comments in first_comments:
         comment_list.append(comments)
-
-
 
     while True:
         max_id = str(res['max_id'])
@@ -122,7 +114,6 @@ def get_qun_weibo_comments(gsid, id):
                 count = count + len(res['root_comments'])
                 temp_comments = res['root_comments']
 
-
             for comments in temp_comments:
                 comment_list.append(comments)
             # print(res['max_id'])
@@ -135,9 +126,10 @@ def get_qun_weibo_comments(gsid, id):
     print(len(comment_list))
     return comment_list
 
+
 #
-gsid = '_2A252zVACDeRxGeBL61YU8i3Jzj2IHXVT2-TKrDV6PUJbkdAKLRPukWpNR0__VwTYwMaWTGKaxujNmOv8-3CN0Zlf'
+gsid = '_2A2526vTUDeRxGeBL61YU8i3Jzj2IHXVTvg8crDV6PUJbkdAKLRfAkWpNR0__V1fpj7VmhYONjSzF3Tb63fcChvBJ'
 #     #
 # get_weibo_ids(gsid, 30)
-print(len(get_weibo_ids(gsid, 30)))
-    # get_qun_weibo_comments(gsid, '4292245878510166')
+print(len(get_weibo_ids(gsid, 1)))
+# get_qun_weibo_comments(gsid, '4292245878510166')
