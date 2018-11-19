@@ -1,4 +1,6 @@
 import datetime
+from datetime import timedelta
+
 from collections import defaultdict
 import xlrd
 import xlwt
@@ -33,6 +35,25 @@ def change_to_time_string(time):
     return time_string
 
 
+def change_to_time_year_month_day_string(time):
+    format_string = '%Y-%m-%d'
+    time_string = time.strftime(format_string)
+    return time_string
+
+
+def change_to_year_month_day_datetime(time_string):
+    format_string = '%Y-%m-%d'
+    datetime_time = datetime.datetime.strptime(time_string, format_string)
+    # print(datetime_time)
+    return datetime_time
+
+
+def get_date(days):
+    temp_time = datetime.datetime.now() - timedelta(days=days)
+    temp_time_string = change_to_time_year_month_day_string(temp_time)
+    temp_time_year_month_day = change_to_year_month_day_datetime(temp_time_string)
+    return temp_time_year_month_day
+
 
 
     # a = [1, 2, 3, 2, 1, 5, 6, 5, 5, 5]
@@ -56,7 +77,6 @@ def check_dup(sorted_list):
     return name_list
 
 
-
 def del_dup(dup_list, sorted_list, save_index):
     print('==========  delete dup ===========')
     for dup in dup_list:
@@ -68,15 +88,16 @@ def del_dup(dup_list, sorted_list, save_index):
                 # print('----------- XXXX delete -------')
                 del sorted_list[temp]
                 # 删掉一条记录后，下一个index 应该 -1
-                if i < len(dup[1])-1:
+                if i < len(dup[1]) - 1:
                     # print(dup[1][i+1])
-                    dup[1][i+1] = dup[1][i+1] - 1
+                    dup[1][i + 1] = dup[1][i + 1] - 1
                     # print(dup[1][i+1])
             else:
                 print('------------ keep dup index -------')
                 print(temp)
                 print('-----------------------')
     print('delete dup element success')
+
 
 # for dup in sorted(list_duplicates(source)):
 #     print(dup)
@@ -99,8 +120,6 @@ def get_excel_max_rows_cols(file, sheet_index):
 
     col_count = table.ncols
     return row_count, col_count
-
-
 
 
 def search_excel_row_col(file, keyword):
@@ -128,7 +147,6 @@ def search_excel_row_col(file, keyword):
             # print(keyword)
             search_row = str(row)
 
-
     for col in range(col_count):
         if str(keyword) in (str(table.col_values(col))):
             # print("*************************************************************************************************")
@@ -136,8 +154,8 @@ def search_excel_row_col(file, keyword):
             # print(keyword)
             search_col = str(col)
 
+    return search_row, search_col
 
-    return search_row,search_col
 
 # file = 'test.xlsx'
 # print(search_excel_row_col(file, 'abc'))
@@ -147,10 +165,8 @@ def init_excel(file, sheet_index, month):
     wb = copy(rb)
     ws = wb.get_sheet(sheet_index)
 
-
     ws.write(0, 0, 'id')
     ws.write(0, 1, 'name')
-
 
     date_list = []
     mdays = calendar.mdays
@@ -159,15 +175,14 @@ def init_excel(file, sheet_index, month):
     else:
         month_string = str(month)
 
-    if month+1 < 10:
-        next_month_string = '0' + str(month+1)
+    if month + 1 < 10:
+        next_month_string = '0' + str(month + 1)
     else:
-        next_month_string = str(month+1)
-
+        next_month_string = str(month + 1)
 
     for i in range(mdays[month]):
-        if i+25 <= mdays[month]:
-            date_string = '2018-' + str(month_string)+ '-' + str(i + 25)
+        if i + 25 <= mdays[month]:
+            date_string = '2018-' + str(month_string) + '-' + str(i + 25)
             date_list.append(date_string)
 
     for i in range(24):
