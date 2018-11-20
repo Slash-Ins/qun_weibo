@@ -55,11 +55,6 @@ def get_date(days):
     return temp_time_year_month_day
 
 
-
-    # a = [1, 2, 3, 2, 1, 5, 6, 5, 5, 5]
-    # source = a
-
-
 def list_duplicates(seq):
     tally = defaultdict(list)
     for i, item in enumerate(seq):
@@ -213,15 +208,14 @@ def create_excel():
     print('create the excel and add sheets...')
     return excel
 
-
-file = create_excel()
+# file = create_excel()
 # file = 'qun_comments_data_new.xlsx'
-init_excel(file, 1, 10)
-
-
+# init_excel(file, 1, 10)
 
 
 # file = 'test.xlsx'
 # init_excel(0)
 # excel_max_rows_cols = get_excel_max_rows_cols(file, 0)
 # print(excel_max_rows_cols)
+
+print(get_date(26))

@@ -39,5 +39,5 @@ def count_daka(file, sheet_index):
 
     wb.save(file)
 
-file = 'qun_comments_data_new.xlsx'
-count_daka(file, 0)
+# file = 'qun_comments_data_new.xlsx'
+# count_daka(file, 0)

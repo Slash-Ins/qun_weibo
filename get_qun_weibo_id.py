@@ -1,8 +1,10 @@
-import requests
-import time
 import datetime
-from tools import cmt_change_to_datetime,change_to_time_string,change_to_time_year_month_day_string
-from db import get_db,close_db,insert_result,find_all,update_result,find_ids
+import time
+
+import requests
+
+from db import get_db, close_db, update_result, find_ids_by_more_than_the_base_day
+from tools import cmt_change_to_datetime, change_to_time_year_month_day_string,change_to_time_string,change_to_datetime
 
 from_source = '108A093010'
 phone_name = 'iphone'
@@ -45,9 +47,9 @@ def get_weibo_ids(gsid, get_id_count):
         # print(weibo['text'])
         weibo_create_time = cmt_change_to_datetime(weibo['created_at'])
         # print(weibo_create_time)
-        weibo_create_time_string = change_to_time_year_month_day_string(weibo_create_time)
+        weibo_create_time_string = change_to_time_string(weibo_create_time)
         # print(weibo_create_time_string)
-        temp_json = {'id': str(weibo['id']), 'text': weibo['text'],'create_time': weibo_create_time_string}
+        temp_json = {'id': str(weibo['id']), 'text': weibo['text'], 'create_time': change_to_datetime(weibo_create_time_string)}
         print(temp_json)
         json_list.append(temp_json)
         weibo_ids_list.append(str(weibo['id']))
@@ -141,17 +143,16 @@ def get_qun_weibo_comments(gsid, id):
 
 
 #
-gsid = '_2A2526vTUDeRxGeBL61YU8i3Jzj2IHXVTvg8crDV6PUJbkdAKLRfAkWpNR0__V1fpj7VmhYONjSzF3Tb63fcChvBJ'
-current_day = datetime.datetime.now().day
-# data_list = get_weibo_ids(gsid, current_day)
-data_list = get_weibo_ids(gsid, 25)
-print(len(data_list))
-print(data_list)
+# gsid = '_2A2526vTUDeRxGeBL61YU8i3Jzj2IHXVTvg8crDV6PUJbkdAKLRfAkWpNR0__V1fpj7VmhYONjSzF3Tb63fcChvBJ'
+# current_day = datetime.datetime.now().day
+# # data_list = get_weibo_ids(gsid, current_day)
+# data_list = get_weibo_ids(gsid, 25)
+# print(len(data_list))
+# print(data_list)
 # get_qun_weibo_comments(gsid, '4292245878510166')
-new_db = get_db()
+# new_db = get_db()
 # for data in data_list:
 #     update_result('qun_weibo_id', new_db[0], data)
-# print(find_all('qun_weibo_id', new_db[0]))
-print(find_ids('qun_weibo_id', new_db[0], 25))
-print(len(find_ids('qun_weibo_id', new_db[0], 25)))
-close_db(new_db[1])
+# # print(find_all('qun_weibo_id', new_db[0]))
+# print(find_ids_by_more_than_the_base_day('qun_weibo_id', new_db[0], 2018, 10,23))
+# # close_db(new_db[1])

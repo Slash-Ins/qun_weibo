@@ -7,6 +7,7 @@ from xlutils.copy import copy
 from get_qun_weibo_id import get_weibo_ids, get_qun_weibo_comments
 import time
 from count import count_daka
+from db import get_db, close_db, find_ids_by_more_than_the_base_day
 
 # https://mapi.weibo.com/2/comments/build_comments?gsid=_2A252zVACDeRxGeBL61YU8i3Jzj2IHXVT2-TKrDV6PUJbkdAKLRPukWpNR0__VwTYwMaWTGKaxujNmOv8-3CN0Zlf&from=108A093010&c=iphone&networktype=wifi&s=aaaaaaaa&lang=zh_CN&ft=0&aid=01ArzgVId_Zvp4PxhcrQFbRrAQ7rwXnRtWAD8TTrm2H9yg9EI.&is_reload=1&is_append_blogs=1&mid=4296603013573659&refresh_type=1&uicode=10000002&count=163&trim_level=1&moduleID=feed&is_show_bulletin=2&fetch_level=0&_status_id=4296603013573659&id=4296603013573659&since_id=0&is_mix=1&page=0
 gsid = '_2A252zVACDeRxGeBL61YU8i3Jzj2IHXVT2-TKrDV6PUJbkdAKLRPukWpNR0__VwTYwMaWTGKaxujNmOv8-3CN0Zlf'
@@ -20,10 +21,13 @@ is_show_bulletin = '2'
 # id = '4296971344358254'
 # weibo_id = '4291521454660997'
 file = 'qun_comments_data_new.xlsx'
-# more_than_200 = []
 
-# weibo_ids_list = get_weibo_ids(gsid, 28)
-weibo_ids_list = get_weibo_ids(gsid, 30)
+qun_weibo_list = []
+weibo_ids_list = []
+new_db = get_db()[0]
+qun_weibo_list = find_ids_by_more_than_the_base_day('qun_weibo_id', new_db[0], 2018, 10, 23)
+for temp in qun_weibo_list:
+    weibo_ids_list.append(temp['id'])
 
 for weibo_id in weibo_ids_list:
     print('************ weibo ids **********')
@@ -165,7 +169,7 @@ for weibo_id in weibo_ids_list:
     print('max_row: ' + str(max_row))
     wb.save(file)
 
-    temp_count =0
+    temp_count = 0
     print('--------------- last sorted list ----------')
     print(sorted_x)
     print(len(sorted_x))
