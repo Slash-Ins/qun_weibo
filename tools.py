@@ -48,11 +48,12 @@ def change_to_year_month_day_datetime(time_string):
     return datetime_time
 
 
-def get_date(days):
+def get_date_before_today(days):
     temp_time = datetime.datetime.now() - timedelta(days=days)
     temp_time_string = change_to_time_year_month_day_string(temp_time)
-    temp_time_year_month_day = change_to_year_month_day_datetime(temp_time_string)
-    return temp_time_year_month_day
+    # temp_time_year_month_day = change_to_year_month_day_datetime(temp_time_string)
+    # return temp_time_year_month_day
+    return temp_time_string
 
 
 def list_duplicates(seq):
@@ -218,4 +219,4 @@ def create_excel():
 # excel_max_rows_cols = get_excel_max_rows_cols(file, 0)
 # print(excel_max_rows_cols)
 
-print(get_date(26))
+# print(get_date(26))
