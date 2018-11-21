@@ -38,17 +38,6 @@ def insert_result(flag, data_list, db):
     print('insert data to mongodb.....')
 
 
-# def find(flag,db,sql):
-#     temp_list = []
-#     my_collection = get_collection(flag, db)
-#     cursor = my_collection.find({}, {'_id': 0})
-#     # base_time = get_date(days)
-#     for item in cursor:
-#         # create_time_datetime = change_to_year_month_day_datetime(item['create_time'])
-#         # if create_time_datetime > base_time:
-#         temp_list.append(item)
-#     return temp_list
-
 
 def find_all(flag, db):
     temp_list = []
@@ -76,6 +65,27 @@ def find_ids_by_more_than_the_base_day(flag, db, year, month, day):
         # if create_time_datetime > base_time:
         #     temp_list.append(item['id'])
     return temp_list
+
+
+
+def find_comments_by_day(flag, db, year, month, day, second_year, second_month, second_day):
+    temp_list = []
+    my_collection = get_collection(flag, db)
+    print(year,month,day)
+    # cursor = my_collection.find({"create_time": {'$gt': datetime(year, month , day)}}, {'_id': 0})
+    print(second_year,second_month,second_day)
+    cursor = my_collection.find({"weibo_create_time": {'$gt': datetime(year, month , day), '$lt':datetime(second_year, second_month, second_day)}}, {'_id': 0}).sort(
+        'weibo_create_time', -1)
+    # base_time = get_date(days)
+    for item in cursor:
+        print(item)
+        temp_list.append(item)
+        # create_time_datetime = change_to_year_month_day_datetime(item['create_time'])
+        # if create_time_datetime > base_time:
+        #     temp_list.append(item['id'])
+    return temp_list
+
+
 
 
 def find_ids_by_sorted_create_time(flag, db, num):
@@ -136,7 +146,7 @@ def close_db(conn):
 
 
 # new_db = get_db()
-# temp_list = find_ids_by_more_than_the_base_day('qun_weibo_id', new_db[0], 2018, 11, 18)
-# # temp_list = find_ids_by_more_than_the_base_day('qun_weibo_id', new_db[0], 2018, 11, 17)
+# temp_list = find_comments_by_day('qun_comments', new_db[0], 2018, 11, 18, 2018,11,21)
+# # # temp_list = find_ids_by_more_than_the_base_day('qun_weibo_id', new_db[0], 2018, 11, 17)
 # print(temp_list)
 # close_db(new_db[1])

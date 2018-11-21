@@ -27,14 +27,20 @@ def count_daka(file, sheet_index):
     print(list_user_count)
 
     # file = 'qun_comments_data_new.xlsx'
-    count_excel = search_excel_row_col(file, str('count'))
+    count_excel = search_excel_row_col(file,sheet_index, str('count'))
 
     rb = xlrd.open_workbook(file)
     wb = copy(rb)
-    ws = wb.get_sheet(0)
+    ws = wb.get_sheet(sheet_index)
 
     for record in list_user_count:
-        temp_name = search_excel_row_col(file, record['name'])
+        temp_name = search_excel_row_col(file, sheet_index,record['name'])
+        # print('---------------- name -----------------')
+        # print(temp_name[0])
+        # print(temp_name[1])
+        # print('---------------- count --------------')
+        # print(count_excel[1])
+        # print(record['count'])
         ws.write(int(temp_name[0]), int(count_excel[1]), str(record['count']))
 
     wb.save(file)

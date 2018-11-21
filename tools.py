@@ -118,12 +118,12 @@ def get_excel_max_rows_cols(file, sheet_index):
     return row_count, col_count
 
 
-def search_excel_row_col(file, keyword):
+def search_excel_row_col(file,sheet_index, keyword):
     # file = 'test.xlsx'
     data = xlrd.open_workbook(file, formatting_info=True)
     # able = data.sheets()[0]  # 通过索引顺序获取
 
-    table = data.sheet_by_index(0)  # 通过索引顺序获取 　　
+    table = data.sheet_by_index(sheet_index)  # 通过索引顺序获取 　　
     row_count = table.nrows
 
     col_count = table.ncols
@@ -208,10 +208,10 @@ def create_excel():
     wbk.save(excel)
     print('create the excel and add sheets...')
     return excel
-
-# file = create_excel()
-# file = 'qun_comments_data_new.xlsx'
-# init_excel(file, 1, 10)
+#
+file = create_excel()
+file = 'qun_comments_data_new.xlsx'
+init_excel(file, 1, 10)
 
 
 # file = 'test.xlsx'
