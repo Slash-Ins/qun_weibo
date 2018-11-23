@@ -5,7 +5,7 @@ import requests
 
 from db import get_db, close_db, update_result, find_ids_by_more_than_the_base_day
 from tools import cmt_change_to_datetime, change_to_time_year_month_day_string, change_to_time_string, \
-    change_to_datetime
+    change_to_datetime,clean
 
 from_source = '108A093010'
 phone_name = 'iphone'
@@ -35,8 +35,8 @@ def get_weibo_ids(gsid, get_id_count):
     params = {'uid': uid, 'count': get_id_count, 'oid': oid}
     print(get_weibo_ids_url)
     res = requests.post(get_weibo_ids_url, params)
-    res.encoding = 'utf-8'
-    res_json = (res.json()).encode('utf-8')
+    # res.encoding = 'utf-8'
+    res_json = clean(res.json())
     print(res_json)
     print(len(res_json['statuses']))
 

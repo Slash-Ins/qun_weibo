@@ -8,6 +8,16 @@ import xlwt
 from xlutils.copy import copy
 import calendar
 
+def clean(data):
+    if isinstance(data, str):
+        return data.replace('\n', ' ').replace('\t', ' ').replace('\r', ' ')
+    if isinstance(data, list):
+        return [clean(item) for item in data]
+    if isinstance(data, dict):
+        return {clean(key): clean(value) for (key, value) in data.items()}
+    return data
+
+
 
 def cmt_change_to_datetime(time_string):
     format_string = '%a %b %d %H:%M:%S +0800 %Y'
