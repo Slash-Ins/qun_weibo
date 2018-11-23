@@ -35,6 +35,7 @@ def get_weibo_ids(gsid, get_id_count):
     params = {'uid': uid, 'count': get_id_count, 'oid': oid}
     print(get_weibo_ids_url)
     res = requests.post(get_weibo_ids_url, params)
+    req.encoding = 'utf-8'
     res_json = res.json()
     print(res_json)
     print(len(res_json['statuses']))
@@ -73,6 +74,7 @@ def get_qun_weibo_comments(gsid, id):
                       + network_type + '&s=' + s + '&count=' + get_comments_count + '&is_show_bulletin=' + is_show_bulletin + '&id=' + id + '&flow=' + flow
     print('start: ' + get_comment_url)
     req = requests.get(get_comment_url)
+    req.encoding = 'utf-8'
     res = req.json()
     count = 0
 
@@ -96,6 +98,7 @@ def get_qun_weibo_comments(gsid, id):
         time.sleep(5)
         print(get_comment_url)
         req = requests.get(get_comment_url)
+        req.encoding = 'utf-8'
         res = req.json()
         print(res['root_comments'])
         print(len(res['root_comments']))
@@ -113,6 +116,7 @@ def get_qun_weibo_comments(gsid, id):
             temp_get_comment_url = get_comment_url + '&max_id=' + max_id
             print(temp_get_comment_url)
             req = requests.get(temp_get_comment_url)
+            req.encoding = 'utf-8'
             res = req.json()
             print(res['root_comments'])
             print(len(res['root_comments']))
@@ -125,6 +129,7 @@ def get_qun_weibo_comments(gsid, id):
                 time.sleep(5)
                 print(temp_get_comment_url)
                 req = requests.get(temp_get_comment_url)
+                req.encoding = 'utf-8'
                 res = req.json()
                 print(res['root_comments'])
                 print(len(res['root_comments']))
