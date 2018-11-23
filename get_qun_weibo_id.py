@@ -39,7 +39,7 @@ def get_weibo_ids(gsid, get_id_count):
 
     # res_text = res.text
     # res_json = json.load(res_text)
-    res_json = req.json()
+    res_json = res.json()
     print(res_json)
     print(len(res_json['statuses']))
 
