@@ -49,6 +49,7 @@ def get_after_the_date_weibo_comments(year, month, day):
         print(get_comment_url)
         try:
             req = requests.get(get_comment_url)
+            req.encoding = 'utf-8'
             res = req.json()
             print(res['total_number'])
         except:
@@ -119,6 +120,7 @@ def get_comments_by_ids(data_list):
                           + network_type + '&s=' + s + '&count=' + get_comments_count + '&is_show_bulletin=' + is_show_bulletin + '&id=' + weibo_id
         print(get_comment_url)
         req = requests.get(get_comment_url)
+        req.encoding = 'utf-8'
         res = req.json()
         print(res['total_number'])
 
