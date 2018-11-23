@@ -35,7 +35,7 @@ def get_weibo_ids(gsid, get_id_count):
     params = {'uid': uid, 'count': get_id_count, 'oid': oid}
     print(get_weibo_ids_url)
     res = requests.post(get_weibo_ids_url, params)
-    req.encoding = 'gbk'
+    res.encoding = 'gbk'
 
     # res_text = res.text
     # res_json = json.load(res_text)
