@@ -11,7 +11,7 @@ def get_db():
     host = cf.get('db', 'HOST')
     port = int(cf.get('db', 'PORT'))
     conn = MongoClient(host, port)
-    # 连接mydb数据库，没有则自动创建
+    # connect db
     db = conn.QunWeibo
     return db, conn
 

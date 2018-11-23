@@ -58,7 +58,7 @@ def get_after_the_date_weibo_comments(year, month, day):
             res = req.json()
             print(res['total_number'])
 
-        # 微博发布时间
+        # weibo create_time
         create_time = res['status']['created_at']
         print(create_time)
         weibo_create_time = cmt_change_to_datetime(create_time)
@@ -66,15 +66,11 @@ def get_after_the_date_weibo_comments(year, month, day):
         weibo_create_time_string = change_to_time_string(weibo_create_time)
         print(weibo_create_time_string)
 
-        # # 微博返回评论数量
-        # print(len(res['root_comments']))
-        # # 实际评论数量
-        # count = 0
-        # 构造单个评论爬取结果
+
 
         qun_comments_list = get_qun_weibo_comments(gsid, weibo_id)
 
-        # 获取评论信息
+        # get comments info
         for comment in qun_comments_list:
             # print(comment)
             name = comment['user']['name']
@@ -126,7 +122,7 @@ def get_comments_by_ids(data_list):
         res = req.json()
         print(res['total_number'])
 
-        # 微博发布时间
+        # weibo create time
         create_time = res['status']['created_at']
         print(create_time)
         weibo_create_time = cmt_change_to_datetime(create_time)
@@ -134,15 +130,11 @@ def get_comments_by_ids(data_list):
         weibo_create_time_string = change_to_time_string(weibo_create_time)
         print(weibo_create_time_string)
 
-        # # 微博返回评论数量
-        # print(len(res['root_comments']))
-        # # 实际评论数量
-        # count = 0
-        # 构造单个评论爬取结果
+
 
         qun_comments_list = get_qun_weibo_comments(gsid, weibo_id)
 
-        # 获取评论信息
+        # get comment info
         for comment in qun_comments_list:
             # print(comment)
             name = comment['user']['name']
