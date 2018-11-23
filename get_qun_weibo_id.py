@@ -50,8 +50,8 @@ def get_weibo_ids(gsid, get_id_count):
         # print(weibo_create_time)
         # weibo_create_time_string = change_to_time_string(weibo_create_time)
         # print(weibo_create_time_string)
-        temp_json = {'id': str(weibo['id']), 'text': weibo['text'],
-                     'create_time': weibo_create_time}
+        temp_json = {'weibo_id': str(weibo['id']), 'text': weibo['text'],
+                     'weibo_create_time': weibo_create_time}
         print(temp_json)
         json_list.append(temp_json)
         weibo_ids_list.append(str(weibo['id']))
@@ -152,13 +152,13 @@ def update_weibo_ids_to_db(data_list, new_db):
 # gsid = '_2A2526vTUDeRxGeBL61YU8i3Jzj2IHXVTvg8crDV6PUJbkdAKLRfAkWpNR0__V1fpj7VmhYONjSzF3Tb63fcChvBJ'
 # # current_day = datetime.datetime.now().day
 # # # data_list = get_weibo_ids(gsid, current_day)
-# data_list = get_weibo_ids(gsid, 28)
+# data_list = get_weibo_ids(gsid, 31)
 # print(len(data_list))
 # print(data_list)
 
 # get_qun_weibo_comments(gsid, '4292245878510166')
 # new_db = get_db()
 # update_weibo_ids_to_db(data_list, new_db[0])
-
+#
 # print(find_ids_by_more_than_the_base_day('qun_weibo_id', new_db[0], 2018, 10,24))
 # close_db(new_db[1])

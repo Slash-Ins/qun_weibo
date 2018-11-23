@@ -56,6 +56,22 @@ def get_date_before_today(days):
     return temp_time_string
 
 
+# 获取一段时间内的日期
+# eg:start_date_string = 2018-9-11 end_date_string = 2018-10-11
+def get_date_between_days(start_date_string, end_date_string):
+    date_list = []
+    # start_date = datetime.datetime(int(start_date_list[0]), int(start_date_list[1]), int(start_date_list[2]))
+    # end_date = datetime.datetime(int(end_date_list[0]), int(end_date_list[1]), int(end_date_list[2]))
+    start_date = change_to_year_month_day_datetime(start_date_string)
+    end_date = change_to_year_month_day_datetime(end_date_string)
+    print(start_date)
+    print(end_date)
+    while start_date <= end_date:
+        date_list.append(start_date.strftime('%Y-%m-%d'))
+        start_date = start_date + datetime.timedelta(1)
+    return date_list
+
+
 def list_duplicates(seq):
     tally = defaultdict(list)
     for i, item in enumerate(seq):
@@ -118,7 +134,7 @@ def get_excel_max_rows_cols(file, sheet_index):
     return row_count, col_count
 
 
-def search_excel_row_col(file,sheet_index, keyword):
+def search_excel_row_col(file, sheet_index, keyword):
     # file = 'test.xlsx'
     data = xlrd.open_workbook(file, formatting_info=True)
     # able = data.sheets()[0]  # 通过索引顺序获取
@@ -134,6 +150,7 @@ def search_excel_row_col(file,sheet_index, keyword):
     #  搜索关键字符串
     # KeyStr = '2018-10-19'
     # keywork = '小诙侠'
+    # print('============================== go to search =================================')
     search_row = 'false'
     search_col = 'false'
     for row in range(row_count):
@@ -155,6 +172,25 @@ def search_excel_row_col(file,sheet_index, keyword):
 
 # file = 'test.xlsx'
 # print(search_excel_row_col(file, 'abc'))
+def init_excel_by_input_date(file, start_date_string, end_date_string):
+    rb = xlrd.open_workbook(file)
+    wb = copy(rb)
+    ws = wb.get_sheet(0)
+
+    ws.write(0, 0, 'id')
+    ws.write(0, 1, 'name')
+
+    date_list = get_date_between_days(start_date_string, end_date_string)
+    print(date_list)
+    date_list.append('count')
+
+    for i in range(len(date_list)):
+        # ws = wb.get_sheet(0)
+        ws.write(0, i + 2, date_list[i])
+    wb.save(file)
+    print('init excel success...')
+
+
 def init_excel(file, sheet_index, month):
     # file = 'test.xlsx'
     rb = xlrd.open_workbook(file)
@@ -204,15 +240,29 @@ def create_excel():
     wbk.add_sheet('9-10', cell_overwrite_ok=True)
     wbk.add_sheet('10-11', cell_overwrite_ok=True)
     wbk.add_sheet('11-12', cell_overwrite_ok=True)
-    excel = r"qun_comments_data_new.xlsx"
+    excel = r"qun_comments_data_new.xls"
+    # excel = r"qun_comments_data_new.xlsx"
     wbk.save(excel)
     print('create the excel and add sheets...')
     return excel
-#
-file = create_excel()
-file = 'qun_comments_data_new.xlsx'
-init_excel(file, 1, 10)
 
+
+def create_excel_by_automation():
+    # 创建工作簿
+    wbk = xlwt.Workbook(encoding='utf-8', style_compression=0)
+    # 创建工作表
+    wbk.add_sheet('comments', cell_overwrite_ok=True)
+    excel = r"qun_comments_data_automation.xls"
+    # excel = r"qun_comments_data_new.xlsx"
+    wbk.save(excel)
+    print('create the excel and add sheets...')
+    return excel
+
+#
+# file = create_excel()
+# file = 'qun_comments_data_new.xls'
+# # file = 'qun_comments_data_new.xlsx'
+# init_excel(file, 1, 10)
 
 # file = 'test.xlsx'
 # init_excel(0)

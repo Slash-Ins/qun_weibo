@@ -16,9 +16,11 @@ def count_daka(file, sheet_index):
         temp_record = {}
         temp_count = 0
         temp_row = table.row_values(i)
-
+        print('------- num row -----------')
+        print(i)
+        print(temp_row)
         for k in range(len(temp_row)):
-            if '1' in str(temp_row[k]):
+            if str(temp_row[k]) == '1':
                 temp_count = temp_count + 1
             temp_record = {'name': temp_row[1], 'count': temp_count}
 

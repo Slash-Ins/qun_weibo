@@ -38,7 +38,6 @@ def insert_result(flag, data_list, db):
     print('insert data to mongodb.....')
 
 
-
 def find_all(flag, db):
     temp_list = []
     my_collection = get_collection(flag, db)
@@ -54,10 +53,10 @@ def find_all(flag, db):
 def find_ids_by_more_than_the_base_day(flag, db, year, month, day):
     temp_list = []
     my_collection = get_collection(flag, db)
-    print(year,month,day)
+    print(year, month, day)
     # cursor = my_collection.find({"create_time": {'$gt': datetime(year, month , day)}}, {'_id': 0})
-    cursor = my_collection.find({"create_time": {'$gt': datetime(year, month , day)}}, {'_id': 0}).sort(
-        'create_time', -1)
+    cursor = my_collection.find({"weibo_create_time": {'$gt': datetime(year, month, day)}}, {'_id': 0}).sort(
+        'weibo_create_time', -1)
     # base_time = get_date(days)
     for item in cursor:
         temp_list.append(item)
@@ -67,14 +66,15 @@ def find_ids_by_more_than_the_base_day(flag, db, year, month, day):
     return temp_list
 
 
-
 def find_comments_by_day(flag, db, year, month, day, second_year, second_month, second_day):
     temp_list = []
     my_collection = get_collection(flag, db)
-    print(year,month,day)
+    print(year, month, day)
     # cursor = my_collection.find({"create_time": {'$gt': datetime(year, month , day)}}, {'_id': 0})
-    print(second_year,second_month,second_day)
-    cursor = my_collection.find({"weibo_create_time": {'$gt': datetime(year, month , day), '$lt':datetime(second_year, second_month, second_day)}}, {'_id': 0}).sort(
+    print(second_year, second_month, second_day)
+    cursor = my_collection.find({"weibo_create_time": {'$gt': datetime(year, month, day),
+                                                       '$lt': datetime(second_year, second_month, second_day+1)}},
+                                {'_id': 0}).sort(
         'weibo_create_time', -1)
     # base_time = get_date(days)
     for item in cursor:
@@ -86,8 +86,7 @@ def find_comments_by_day(flag, db, year, month, day, second_year, second_month, 
     return temp_list
 
 
-
-
+# get the records sorted by create_time
 def find_ids_by_sorted_create_time(flag, db, num):
     temp_list = []
     my_collection = get_collection(flag, db)
@@ -114,11 +113,11 @@ def update_result(flag, db, data):
     if 'qun_weibo_id' in flag:
         print('-------------------updat result json ----------------------------')
         # data['create_time'] = change_to_year_month_day_datetime(data['create_time'])
-        result_json = {'id': data['id'], 'text': data['text'], 'create_time': data['create_time']}
+        result_json = {'weibo_id': data['weibo_id'], 'text': data['text'], 'weibo_create_time': data['weibo_create_time']}
         print(result_json)
         cursor_update = my_collection.update(
-            {'id': data['id']},
-            {'$set': {'text': data['text'], 'create_time': data['create_time']}}, True, True)
+            {'weibo_id': data['weibo_id']},
+            {'$set': {'text': data['text'], 'weibo_create_time': data['weibo_create_time']}}, True, True)
 
     if 'qun_comments' in flag or 'skip_qun_comments' in flag:
         print('-------------------update result json ----------------------------')
@@ -143,7 +142,6 @@ def update_result(flag, db, data):
 
 def close_db(conn):
     conn.close()
-
 
 # new_db = get_db()
 # temp_list = find_comments_by_day('qun_comments', new_db[0], 2018, 11, 18, 2018,11,21)
