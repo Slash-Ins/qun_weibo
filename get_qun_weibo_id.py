@@ -2,7 +2,7 @@ import datetime
 import time
 
 import requests
-
+import json
 from db import get_db, close_db, update_result, find_ids_by_more_than_the_base_day
 from tools import cmt_change_to_datetime, change_to_time_year_month_day_string, change_to_time_string, \
     change_to_datetime,clean
@@ -36,7 +36,8 @@ def get_weibo_ids(gsid, get_id_count):
     print(get_weibo_ids_url)
     res = requests.post(get_weibo_ids_url, params)
     # res.encoding = 'utf-8'
-    res_json = clean(res.json())
+    res_text = res.text.encode('utf-8')
+    res_json = json.load(res_text)
     print(res_json)
     print(len(res_json['statuses']))
 
