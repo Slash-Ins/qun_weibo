@@ -36,7 +36,7 @@ def get_weibo_ids(gsid, get_id_count):
     print(get_weibo_ids_url)
     res = requests.post(get_weibo_ids_url, params)
     # res.encoding = 'utf-8'
-    res_text = res.text.encode('utf-8')
+    res_text = res.text.encode('gbk')
     res_json = json.load(res_text)
     print(res_json)
     print(len(res_json['statuses']))
